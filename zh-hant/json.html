@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=0.8, minimum-scale=0.8, maximum-scale=0.8, user-scalable=no">
+    <link rel="stylesheet" href="/global.css">
+    <!-- <script src="/global.js"></script> -->
+    <title>JSON 教程</title>
+    <link rel="icon" href="https://www.json.org/img/json160.gif">
+    <style>
+        :root {
+            --c: #333;
+        }
+
+        @supports (scroll-behavior: smooth) {
+            :root {
+                scroll-behavior: smooth;
+            }
+        }
+
+        li>data-pre,
+        data-c>data-pre,
+        p>data-pre {
+            padding: 5px;
+        }
+
+        data-s {
+            color: #067D17;
+        }
+
+        data-n {
+            color: #1750EB;
+        }
+
+        data-b {
+            color: #FF5874;
+        }
+
+        data-pre,
+        pre {
+            background-color: #eee;
+            padding: 9px;
+            font-size: 14px;
+            border-radius: 5px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            overflow-x: auto;
+            overflow-y: hidden;
+            max-height: 500px;
+            margin-bottom: 10px;
+            line-height: 1.5;
+            font-family: Consolas, Menlo, Monaco, "Lucida Console", "Liberation Mono", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Courier New", monospace, serif;
+            font-weight: 400;
+            color: var(--c);
+        }
+
+        * {
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            -o-user-select: none;
+        }
+
+        ol {
+            padding-left: 25px;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .next {
+            color: #ff7700;
+        }
+
+        a:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+
+        a.next:hover {
+            color: #ffaa00;
+        }
+
+        a.meaning {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+<div class="dropdown">
+    <button class="dropbtn"><i class="fa fa-globe"></i>
+        <data-language>繁體中文</data-language>
+        <i
+                class="fa fa-angle-down" aria-hidden="true"></i></button>
+    <div onclick="if(localStorage.getItem('language')){localStorage.removeItem('language')};localStorage.setItem('language','zh-hans')"
+         class="dropdown-content">
+        <a href="../json.html">简体中文</a>
+    </div>
+</div>
+<h1 id="json">JSON 教程</h1>
+<hr>
+<div>
+    <img style="margin-top: 10px;" src="https://www.json.org/img/json160.gif" alt="">
+    <p style="font-size: 14px;">JSON: <b>J</b>ava<b>S</b>cript <b>O</b>bject <b>N</b>otation（JavaScript 物件表示法）
+    </p>
+    <div style="font-size: 9px;">
+        <p>JSON 是儲存和交換文字資訊的語法。</p>
+        <p>JSON 相對更小、更快，更易解析。</p>
+        <p>JSON 易於人閱讀和編寫。</p>
+        <p>眾多程式語言都支援 JSON。</p>
+    </div>
+    <p style="font-size: 17px;"><strong>總之，JSON 是一種輕量級的資料交換格式。</strong></p>
+    <hr>
+    <h3 id="learn">接下來，我們將學習 JSON。</h3>
+    <p>我會使用非常簡單的方式來解釋它，希望這對你有所幫助。</p>
+    <p>有連結樣式的內容在上方/下方，點選即可跳轉。</p>
+    <p>如果你想學習更多，可以<a href="#next" class="next">進一步學習</a>，這是非必要的。</p>
+    <p><small>（聰明的你發現了嗎？<a href="#next" class="next">進一步學習</a>是橙色的！）</small></p>
+    <hr>
+    <h3 id="before">在學習之前，我該做什麼？</h3>
+    <p>適當瞭解一些基礎的概念：</p>
+    <ul>
+        <li>JSON 可以是有格式的，可能有很多<a href="#whitespace" class="next">空白</a>。</li>
+        <li>以下提及的字元均為半形(英文)字元。</li>
+    </ul>
+    <hr>
+    <h2 id="JSON-value">JSON 值</h2>
+    <p>JSON 值可以是：</p>
+    <ul>
+        <li><a href="#number">數字</a></li>
+        <li><a href="#string">字串</a></li>
+        <li><a href="#boolean">邏輯值</a></li>
+        <li><a href="#null">空值</a></li>
+        <li><a href="#array">陣列</a></li>
+        <li><a href="#object">物件</a></li>
+    </ul>
+    <h3 id="number">書寫 JSON 數字</h3>
+    <ol>
+        <li>數字可以是整數或小數(浮點數)。</li>
+        <li>小數的小數點前後至少有一位數字。</li>
+        <li>非負數的正號可有可無。</li>
+        <li>可以用類似<a href="#scientific" class="next">科學記數法</a>表示。</li>
+    </ol>
+    <p>下面是數字的幾個例子：</p>
+    <pre><data-n>123
+-1234.567
++0.55</data-n></pre>
+    <h3 id="string">書寫 JSON 字串</h3>
+    <ol>
+        <li>按照標準，必須使用雙引號(
+            <data-pre><data-s>""</data-s></data-pre>
+            )括起來。
+        </li>
+        <li>字串可以是任何內容，特殊的需要<a href="#escape" class="next">轉義</a>。</li>
+        <li>反斜槓(
+            <data-pre>\</data-pre>
+            ) 是跳脫字元。
+        </li>
+    </ol>
+    <p>下面是字串的幾個例子：</p>
+    <pre><data-s>"Hello World!"
+""
+"114514"</data-s></pre>
+    <h3 id="boolean">書寫 JSON 邏輯值</h3>
+    <ol style="--c: #FF5874;">
+        <li>邏輯值只有 真(
+            <data-pre>true</data-pre>
+            ) 和 假(
+            <data-pre>false</data-pre>
+            )。
+        </li>
+    </ol>
+    <p>下面是邏輯值的唯二寫法：</p>
+    <pre><data-b>true
+false</data-b></pre>
+    <h3 id="null">書寫 JSON 空值</h3>
+    <ol>
+        <li>空值是一個特殊的值，表示空物件引用。</li>
+    </ol>
+    <p>下面是空值的唯一寫法：</p>
+    <pre style="--c: #000; font-weight: bold;">null</pre>
+    <h3 id="array">書寫 JSON 陣列</h3>
+    <ol>
+        <li>陣列是一組由逗號分隔的 <a href="#JSON-value">JSON 值</a>。</li>
+        <li>陣列必須用中括號(
+            <data-pre>[]</data-pre>
+            ) 括起來。
+        </li>
+    </ol>
+    <p>下面是陣列的一個例子：</p>
+    <pre>[
+    <data-s>"蔡徐坤"</data-s>,
+    <data-b>true</data-b>,
+    <data-n>1998</data-n>,
+    <data-s>"浙江省溫州市"</data-s>
+]</pre>
+    <h3 id="object">書寫 JSON 物件</h3>
+    <ol>
+        <li>物件由多個<a href="#key-value">鍵值對</a>組成，用逗號隔開。</li>
+        <li>物件必須用大括號(
+            <data-pre>{}</data-pre>
+            ) 括起來。
+        </li>
+    </ol>
+    <p>下面是物件的一個例子：</p>
+    <pre>{
+    <data-s>"姓名"</data-s>: <data-s>"蔡徐坤"</data-s>,
+    <data-s>"男性"</data-s>: <data-b>true</data-b>,
+    <data-s>"出生年份"</data-s>: <data-n>1998</data-n>,
+    <data-s>"出生地區"</data-s>: <data-s>"浙江省溫州市"</data-s>
+}</pre>
+    <hr>
+    <h3 id="key-value">鍵值對？那是什麼？</h3>
+    <ol>
+        <li>鍵值對由一個鍵和一個值組成。</li>
+        <li>鍵與值之間使用冒號分隔。</li>
+        <li>按照標準，鍵是<a href="#string">字串</a>，值的型別不限。</li>
+    </ol>
+    <p>下面是鍵值對的一個例子：</p>
+    <pre><data-s>"鍵"</data-s>: <data-s>"值"</data-s></pre>
+    <hr>
+    <h3 id="more">相關內容推薦</h3>
+    <p><small>校驗 JSON 網站：<a href="https://jsonlint.com">https://jsonlint.com</a></small></p>
+    <hr>
+    <h2 id="next" class="next">進一步學習</h2>
+    <h3 id="whitespace">格式化：空白</h3>
+    <p>JSON 可以是有格式的，可能有很多空白。</p>
+    <p>空白可以是以下符號：</p>
+    <pre>空格
+換行符
+回車符
+水平製表符</pre>
+    <h3 id="scientific">數字：科學記數法</h3>
+    <p>科學記數法通常用於表示很大或很小的數字。</p>
+    <p>我們先要了解，在數學中的科學記數法應該怎麼寫。</p>
+    <p>科學計數法：a × 10<sup>n</sup>（1 ≤ |a| &lt; 10，n 是整數）<sup><a href="#1." id="[1]" class="meaning">[1]</a></sup>
+    </p>
+    <p>例如，1400000000 = 1.4 × 10<sup>9</sup> 。</p>
+    <p>再者，0.00000012 = 1.2 × 10<sup>-7</sup> 。</p>
+    <p>好的，讓我們來學學 JSON 中的科學記數法吧。</p>
+    <p>a × 10<sup>n</sup> = a +
+        <data-s>"e"</data-s>
+        + n（若 n 為正數，正號可有可無）
+    </p>
+    <p>其實做個替換就好啦，並且 a 也符合<a href="#number">數字</a>的解釋！</p>
+    <p>比如，
+        <data-pre><data-n>-7e8</data-n></data-pre>
+        ，等於 -7 × 10<sup>8</sup> 。
+    </p>
+    <p>下面是科學記數法的幾個例子：</p>
+    <pre><data-n>1.4e9
+1.2e-7
++0.12e-6
+-9e+16</data-n></pre>
+    <a href="#1." id="1.">1.</a> 在 JSON 中，a 的值可以在區間之外。<a href="#[1]" class="meaning">↑</a>
+    <h3 id="escape">字串：轉義</h3>
+    <ol>
+        <li>反斜槓(
+            <data-pre>\</data-pre>
+            ) 是轉義符。
+        </li>
+        <li>只有下列字元是有效的。</li>
+        <li>轉義符要放在字元前面。</li>
+    </ol>
+    <p>被轉義後的有效字元：<small>(都加上了轉義符)</small></p>
+    <pre>\"
+\\
+\/
+\b
+\f
+\n
+\r
+\t
+\u</pre>
+    <p>它們所對應的解釋大概是：</p>
+    <pre>\"  - 在字串中寫雙引號的方式
+\\  - 寫反斜槓的方式（因為自身是轉義符）
+\/  - 轉不轉義都可以（為相容特殊情況）
+\b  - 退格，將當前位置移到前一列
+\f  - 換頁，將當前位置移到下頁開頭
+\n  - 換行，將當前位置移到下一行開頭
+\r  - 回車，將當前位置移到本行開頭
+\t  - 水平製表，將當前位置移到下一製表符
+\u  - Unicode 碼，後跟四位 16 進位制字元</pre>
+    <p>下面是含跳脫字元的字串的一個例子：</p>
+    <pre><data-s>"換行符：\"\\n\"\n王境澤曾說：真\u9999。"</data-s></pre>
+    <p>按照標準的 JSON，會被認為是：</p>
+    <pre>換行符："\n"
+王境澤曾說：真香。</pre>
+    <small><small>（\u9999 中的 9999 是 16 進位制 Unicode 碼，不重要）</small></small><br>
+    <hr>
+    <small style="color:#555;"><small>參考：<a href="https://json.org/json-zh"
+                                              target="_blank">https://json.org/json-zh</a>,
+        <a href="https://json.org/json-en" target="_blank">https://json.org/json-en</a><br>
+        最後修改：<b>2024/05/15</b></small></small>
+</div>
+</body>
+
+</html>
