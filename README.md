@@ -1,4 +1,4 @@
-# Addon IDE (WEB)
+# Addon IDE (Web)
 [![Page Views Count](https://badges.toozhao.com/badges/01HS2SRAMG7A8HMS26WMGVGS9P/green.svg)](https://badges.toozhao.com/stats/01HS2SRAMG7A8HMS26WMGVGS9P)
 
 针对Minecraft基岩版设计的一款模组制作器软件（网站部分）。
